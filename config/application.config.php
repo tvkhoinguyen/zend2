@@ -4,6 +4,7 @@ return array(
     'modules' => array(
         'Application',
         'Album', //them line nay khi add new 1 module, o day them 1 module Album
+        'Blog', //them line nay khi add new 1 module, o day them 1 module Album
     ),
 
     // These are various options for the listeners attached to the ModuleManager
