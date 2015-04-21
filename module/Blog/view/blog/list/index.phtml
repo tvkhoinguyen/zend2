@@ -1,0 +1,32 @@
+<h1>Hello world!</h1>
+<?php
+// module/Album/view/album/album/index.phtml:
+$title = 'My albums' ;
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div class="container">
+	<!-- <div class="alert alert-success" role="alert">haivl</div> -->
+	<div class="alert alert-info" role="alert">chatvl</div>
+	<div class="alert alert-warning" role="alert">depvl</div>
+	<!-- <div class="alert alert-danger" role="alert">cuoivl</div> -->
+</div>
+
+<div class="container">
+	<?php 
+		echo '<pre>';
+		print_r($posts);
+		echo '</pre>';
+	?>
+</div>	
+
+<!-- Filename: /module/Blog/view/blog/list/index. phtml -->
+<h1>Blog</h1>
+<?php foreach ($this->posts as $post) : ?>
+<article>
+<h1 id="post<?= $post->getId() ?>"><?= $post->getTitle() ?></h1>
+<p>
+<?= $post->getText() ?>
+</p>
+</article>
+<?php endforeach ?>

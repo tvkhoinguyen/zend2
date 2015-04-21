@@ -1,9 +1,22 @@
 <?php
 // Filename: /module/Blog/config/module.config.php
 return array(
-	'controllers' => array(
+
+	'service_manager' => array(
 		'invokables' => array(
-			'Blog\Controller\List' => 'Blog\Controller\ListController'
+			'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+		)
+	),
+
+
+	// 'controllers' => array(
+	// 	'invokables' => array(
+	// 		'Blog\Controller\List' => 'Blog\Controller\ListController'
+	// 	)
+	// ),
+	'controllers' => array(
+		'factories' => array(
+			'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory'
 		)
 	),
 
@@ -12,20 +25,27 @@ return array(
 		// Open configuration for all possible routes
 		'routes' => array(
 			// Define a new route called "post"
-			'post' => array(
-				// Define the routes type to be "Zend\Mvc\Router\Http\Literal", which is basically ju
-				'type' => 'literal' ,
-				// Configure the route itself
+			'blog' => array(
+				// 'type' => 'literal' ,
+				'type' => 'segment' ,
 				'options' => array(
-				// Listen to "/blog" as uri
-				'route' => '/blog' ,
-				// Define default controller and action to be called when this route is matched
+					'route' => '/blog[/:action][/:id]' ,
+					'constraints' => array(
+						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'id' => '[0-9]+',
+					),
 					'defaults' => array(
-					'controller' => 'Blog\Controller\List' ,
-					'action' => 'index' ,
+						'controller' => 'Blog\Controller\List' ,
+						'action' => 'index' ,
 					)
 				)
 			)
 		)
-	)
+	),
+	'view_manager' => array(
+		'template_path_stack' => array(
+			'blog'=>__DIR__ . '/../view' ,
+		),
+	),
 );
+?>
