@@ -7,20 +7,20 @@ class PostService implements PostServiceInterface
 {
 
 	protected $postMapper;
-	/*
-	* param PostMapperInterface $postMapper
-	*/
+	
 	public function __construct(PostMapperInterface $postMapper)
 	{
-		$this->postMapper = $postMapper;
+		if(!empty($postMapper) ) $this->postMapper = $postMapper;
 	}
 	
 	public function findAllPosts()
 	{
+		return $this->postMapper->findAll();
 	}
 	
 	public function findPost($id)
 	{
+		return $this->postMapper->find($id);
 	}
 
 	/*protected $data = array(

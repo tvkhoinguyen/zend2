@@ -2,9 +2,28 @@
 // Filename: /module/Blog/config/module.config.php
 return array(
 
+	'db' => array(
+		'driver' => 'Pdo' ,
+		'username' => 'root' , //edit this
+		'password' => '' , //edit this
+		'dsn' => 'mysql:dbname=zend2;host=localhost' ,
+		'driver_options' => array(
+		\PDO:: MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+		)
+	),
+
+
+
+
 	'service_manager' => array(
-		'invokables' => array(
-			'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+		// 'invokables' => array(
+		// 	'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+		// )
+		'factories' => array(
+			// 'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory',
+			'Blog\Mapper\PostMapperInterface' => 'Blog\Factory\ZendDbSqlMapperFactory' ,
+			'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory',
+			'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
 		)
 	),
 
@@ -15,8 +34,8 @@ return array(
 	// 	)
 	// ),
 	'controllers' => array(
-		'factories' => array(
-			'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory'
+		'invokables' => array(
+			'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory',
 		)
 	),
 
